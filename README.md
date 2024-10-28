@@ -4,6 +4,8 @@ This is an application that takes in symptoms as input from the user to diagnose
 
 This is an AI model that can use one of 5 models(KNN, SVM, NN, LogReg, NB) to predict the disease. the choice of the model is chosen through the code
 
+REQUIREMENTS: numpy, pandas, matplotlib, scikit-learn
+
 to run the program run Application.py using python
 
 WARNING: the search functionality is in beta mode and doesn't work correctly. DO NOT use search.
