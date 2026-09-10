@@ -17,7 +17,7 @@ def Main():
             OutputLabel.config(text = '')
             return None
         print([symptomList.get(x) for x in sympt])
-        disease = mlm.Diagnose([symptomList.get(x) for x in sympt], mlm.knn_model)
+        disease = mlm.Diagnose([symptomList.get(x) for x in sympt], mlm.lg_model)
         OutputLabel.config(text = disease)
 
     def ClearSelections():
