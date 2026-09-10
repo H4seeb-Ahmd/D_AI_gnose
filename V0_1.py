@@ -15,6 +15,8 @@ THIS IS AN UPDATED VERSION OF THE SAME CODE CREATED BY HASEEB AHMED
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import pickle
+import os
 
 #Scaling imports
 from imblearn.over_sampling import RandomOverSampler
@@ -110,52 +112,81 @@ def histogramplotter(data):
 
 # %%
 #KNN
-knn_model = KNeighborsClassifier(n_neighbors = 10)
-knn_model.fit(Xtrain, Ytrain)
+if os.path.exists("knn_model.bin"):
+    with open("knn_model.bin", 'rb') as file:
+        knn_model = pickle.load(file)
+else:
+    knn_model = KNeighborsClassifier(n_neighbors = 10)
+    knn_model.fit(Xtrain, Ytrain)
 
-y_pred = knn_model.predict(Xtest)
+    y_pred = knn_model.predict(Xtest)
 
 # print(classification_report(Ytest, y_pred))
-
+    with open("knn_model.bin", 'wb') as file:
+        pickle.dump(knn_model, file)
 # %%
 #Naive Bayes
+if os.path.exists("nb_model.bin"):
+    with open("nb_model.bin", 'rb') as file:
+        nb_model = pickle.load(file)
+else:
+    nb_model = GaussianNB()
+    nb_model = nb_model.fit(Xtrain, Ytrain)
 
-nb_model = GaussianNB()
-nb_model = nb_model.fit(Xtrain, Ytrain)
-
-Ypred = nb_model.predict(Xtest)
-
+    Ypred = nb_model.predict(Xtest)
+    with open("nb_model.bin", 'wb') as file:
+        pickle.dump(nb_model, file)
 # print(classification_report(Ytest, Ypred))
 
 # %%
 #Logistic Regression
+if os.path.exists("lg_model.bin"):
+    with open("lg_model.bin", 'rb') as file:
+        lg_model = pickle.load(file)
+else:
+    lg_model = LogisticRegression()
+    lg_model = lg_model.fit(Xtrain, Ytrain)
 
-lg_model = LogisticRegression()
-lg_model = lg_model.fit(Xtrain, Ytrain)
-
-Ypred = lg_model.predict(Xtest)
+    Ypred = lg_model.predict(Xtest)
+    with open("lg_model.bin", 'wb') as file:
+        pickle.dump(lg_model, file)
 
 # print(classification_report(Ytest, Ypred))
 
 # %%
 #SVM
+if os.path.exists("svm_model.bin"):
+    with open("svm_model.bin", 'rb') as file:
+        svm_model = pickle.load(file)
+else:
+    svm_model = SVC()
+    svm_model = svm_model.fit(Xtrain, Ytrain)
 
-svm_model = SVC()
-svm_model = svm_model.fit(Xtrain, Ytrain)
+    Ypred = svm_model.predict(Xtest)
+    with open("svm_model.bin", 'wb') as file:
+        pickle.dump(svm_model, file)
 
-Ypred = svm_model.predict(Xtest)
 
 # print(classification_report(Ytest, Ypred))
 
 # %%
 #NEURAL NETWORKS
 
-nn_model = MLPClassifier(hidden_layer_sizes = 10,
-                         activation = "logistic",
-                         solver = "adam")
-nn_model = nn_model.fit(Xtrain, Ytrain)
+if os.path.exists("nn_model.bin"):
+    with open("nn_model.bin", 'rb') as file:
+        nn_model = pickle.load(file)
+else:
 
-Ypred = nn_model.predict(Xtest)
+    nn_model = MLPClassifier(hidden_layer_sizes = 10,
+                            activation = "logistic",
+                            solver = "adam")
+    nn_model = nn_model.fit(Xtrain, Ytrain)
+
+    Ypred = nn_model.predict(Xtest)
+    with open("nn_model.bin", 'wb') as file:
+        pickle.dump(nn_model, file)
+
+
 
 # print(classification_report(Ytest, Ypred))
 
