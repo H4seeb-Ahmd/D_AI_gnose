@@ -38,7 +38,7 @@ from sklearn.svm import SVC
 from sklearn.neural_network import MLPClassifier
 
 # %%
-dataset = pd.read_csv('dataset/dataset.csv')
+dataset = pd.read_csv('dataset.csv')
 
 # %%
 dataset.head()
